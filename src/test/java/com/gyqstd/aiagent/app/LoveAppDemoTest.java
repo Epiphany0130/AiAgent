@@ -10,7 +10,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class LoveAppTest {
+class LoveAppDemoTest {
 
     @Resource
     private LoveApp loveApp;
@@ -34,4 +34,11 @@ class LoveAppTest {
 
     }
 
+    @Test
+    void doChatWithReport() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "你好，我是谷煜奇，我希望和一个女生交往，但她有男朋友了，我应该怎么做";
+        LoveApp.LoveReport loveReport = loveApp.doChatWithReport(message, chatId);
+        Assertions.assertNotNull(loveReport);
+    }
 }

@@ -18,7 +18,7 @@ import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvis
  */
 @Component
 @Slf4j
-public class LoveApp {
+public class LoveAppDemo {
 
     private ChatClient chatClient;
 
@@ -27,7 +27,7 @@ public class LoveApp {
             "恋爱状态询问沟通、习惯差异引发的矛盾；已婚状态询问家庭责任与亲属关系处理的问题。" +
             "引导用户详述事情经过、对方反应及自身想法，以便给出专属解决方案。";
 
-    public LoveApp(ChatModel dashscopeChatModel) {
+    public LoveAppDemo(ChatModel dashscopeChatModel) {
         ChatMemory chatMemory = new InMemoryChatMemory();
         chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultSystem(SYSTEM_PROMPT)
