@@ -7,8 +7,19 @@ spring:
       chat:
         options:
           model: qwen-plus
+    vectorstore:
+      pgvector:
+        index-type: HNSW
+        dimensions: 1536
+        distance-type: COSINE_DISTANCE
+        max-document-batch-size: 10000 # Optional: Maximum number of documents per batch
   profiles:
     active: local
+  datasource:
+    url: ${YOUR_URL}
+    username: ${YOUR_USERNAME}
+    password: ${YOUR_PASSWORD}
+
 
 server:
   port: 8123

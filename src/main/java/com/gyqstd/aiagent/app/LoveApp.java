@@ -78,7 +78,6 @@ public class LoveApp {
         log.info("content: {}", content);
         return content;
     }
-    
 
     record LoveReport(String title, List<String> suggestions) {}
 
