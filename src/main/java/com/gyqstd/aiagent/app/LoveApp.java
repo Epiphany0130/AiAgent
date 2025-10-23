@@ -106,6 +106,8 @@ public class LoveApp {
     @Resource
     private Advisor loveAppRagCloudAdvisor;
 
+    @Resource
+    private VectorStore pgVectorVectorStore;
     /**
      * 和 RAG 知识库进行对话
      */
@@ -119,8 +121,10 @@ public class LoveApp {
                 .advisors(new MyLoggerAdvisor())
 //                // 使用 RAG
 //                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
-                // 使用增强检索服务（云知识库）
-                .advisors(loveAppRagCloudAdvisor)
+//                // 使用增强检索服务（云知识库）
+//                .advisors(loveAppRagCloudAdvisor)
+                // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
+                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
                 .call()
                 .chatResponse();
         String content = response.getResult().getOutput().getText();
