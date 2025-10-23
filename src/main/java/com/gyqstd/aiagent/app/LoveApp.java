@@ -2,6 +2,7 @@ package com.gyqstd.aiagent.app;
 
 import com.gyqstd.aiagent.advisor.MyLoggerAdvisor;
 import com.gyqstd.aiagent.chatmemory.FileBasedChatMemory;
+import com.gyqstd.aiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -108,13 +109,19 @@ public class LoveApp {
 
     @Resource
     private VectorStore pgVectorVectorStore;
+
+    @Resource
+    private QueryRewriter queryRewriter;
     /**
      * 和 RAG 知识库进行对话
      */
     public String doChatWithRAG(String message, String chatId) {
+        // 查询重写
+        String rewrittenMessage = queryRewriter.doQueryRewrite(message);
         ChatResponse response = chatClient
                 .prompt()
-                .user(message)
+                // 使用重写后的查询
+                .user(rewrittenMessage)
                 .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
                 // 开启日志
