@@ -119,12 +119,12 @@ public class LoveApp {
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
                 // 开启日志
                 .advisors(new MyLoggerAdvisor())
-//                // 使用 RAG
-//                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
+                // 使用 RAG
+                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
 //                // 使用增强检索服务（云知识库）
 //                .advisors(loveAppRagCloudAdvisor)
-                // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
-                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
+//                // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
+//                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
                 .call()
                 .chatResponse();
         String content = response.getResult().getOutput().getText();
