@@ -16,7 +16,7 @@ public class WebScrapingTool {
     public String scrapeWebPage(@ToolParam(description = "URL of the web page to scrape") String url) {
         try {
             Document doc = Jsoup.connect(url).get();
-            return doc.html();
+            return "Scraped content: " + doc.body().text();
         } catch (IOException e) {
             return "Error scraping web page: " + e.getMessage();
         }

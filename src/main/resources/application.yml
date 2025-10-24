@@ -7,7 +7,8 @@ spring:
       chat:
         options:
           model: qwen-plus
-#      pgvector:
+      read-timeout: 600
+  #      pgvector:
 #        index-type: HNSW
 #        dimensions: 1536
 #        distance-type: COSINE_DISTANCE
