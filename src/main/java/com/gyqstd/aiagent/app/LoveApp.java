@@ -2,6 +2,7 @@ package com.gyqstd.aiagent.app;
 
 import com.gyqstd.aiagent.advisor.MyLoggerAdvisor;
 import com.gyqstd.aiagent.chatmemory.FileBasedChatMemory;
+import com.gyqstd.aiagent.rag.LoveAppRagCustomAdvisorFactory;
 import com.gyqstd.aiagent.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -127,11 +128,17 @@ public class LoveApp {
                 // 开启日志
                 .advisors(new MyLoggerAdvisor())
                 // 使用 RAG
-                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
+//                .advisors(new QuestionAnswerAdvisor(loveAppVectorStore))
 //                // 使用增强检索服务（云知识库）
 //                .advisors(loveAppRagCloudAdvisor)
 //                // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
 //                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
+//                // 应用自定义的 RAG 检索增强服务（文档查询器 + 上下文增强器）
+                .advisors(
+                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+                                loveAppVectorStore, "恋爱"
+                        )
+                )
                 .call()
                 .chatResponse();
         String content = response.getResult().getOutput().getText();
