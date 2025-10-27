@@ -140,6 +140,12 @@
             <scope>test</scope>
         </dependency>
 
+<!--        MCP 服务-->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-server-webmvc</artifactId>
+            <version>1.0.0-M7</version>
+        </dependency>
 
     </dependencies>
 

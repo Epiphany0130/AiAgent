@@ -8,6 +8,10 @@ spring:
         options:
           model: qwen-plus
       read-timeout: 600
+    mcp:
+      client:
+        stdio:
+          servers-configuration: classpath:mcp-servers.json
   #      pgvector:
 #        index-type: HNSW
 #        dimensions: 1536
