@@ -80,7 +80,12 @@ class LoveAppDemoTest {
     @Test
     void doChatWithMCP() {
         String chatId = UUID.randomUUID().toString();
-        String message = "你好，我居住在潍坊经济开发区民主街7777号潍坊理工学院(中心校区)，请帮我推荐一下附近的约会地点？";
+        // 测试地图 MCP
+//        String message = "你好，我居住在潍坊经济开发区民主街7777号潍坊理工学院(中心校区)，请帮我推荐一下附近的约会地点？";
+//        String report = loveApp.doChatWithMCP(message, chatId);
+//        Assertions.assertNotNull(report);
+        // 测试图片搜索 MCP
+        String message = "Plese give me photo about marry";
         String report = loveApp.doChatWithMCP(message, chatId);
         Assertions.assertNotNull(report);
     }
