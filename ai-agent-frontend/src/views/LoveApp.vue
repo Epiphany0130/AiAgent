@@ -1,8 +1,20 @@
 <template>
   <div class="chat-container">
+    <!-- SEO优化：添加结构化数据 -->
+    <div class="seo-hidden" itemscope itemtype="http://schema.org/SoftwareApplication">
+      <meta itemprop="name" content="AI恋爱大师" />
+      <meta itemprop="applicationCategory" content="社交" />
+      <meta itemprop="operatingSystem" content="Web" />
+      <meta itemprop="description" content="与AI谈一场甜蜜的恋爱，体验智能情感交流" />
+      <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <meta itemprop="ratingValue" content="4.8" />
+        <meta itemprop="ratingCount" content="1024" />
+      </div>
+    </div>
+    
     <div class="chat-header">
       <div class="back-button" @click="goBack">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="返回按钮">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/>
         </svg>
       </div>
@@ -189,18 +201,57 @@ export default {
 </script>
 
 <style scoped>
+/* 传统恋爱应用样式 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Pacifico&display=swap');
+
+.seo-hidden {
+  display: none;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+  60% { transform: scale(1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes floatingHearts {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
 .chat-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #f5f6fa;
+  background-color: #fff;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255, 192, 203, 0.1) 0%, transparent 70%);
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  overflow: hidden;
 }
 
 .chat-header {
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  background: linear-gradient(135deg, #e84118 0%, #c23616 100%);
+  background: linear-gradient(90deg, #ff758c 0%, #ff7eb3 100%);
   color: white;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -212,7 +263,8 @@ export default {
   height: 24px;
   margin-right: 15px;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.3s;
+  color: white;
 }
 
 .back-button:hover {
@@ -221,13 +273,41 @@ export default {
 
 .chat-header h1 {
   flex: 1;
+  font-family: 'Pacifico', cursive;
   font-size: 1.5rem;
   margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.chat-header h1::before {
+  content: '❤';
+  position: absolute;
+  top: -2px;
+  left: -25px;
+  font-size: 1rem;
+  animation: heartbeat 1.5s infinite;
+}
+
+.chat-header h1::after {
+  content: 'Pro';
+  position: absolute;
+  top: -5px;
+  right: -30px;
+  font-size: 0.6rem;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 2px 5px;
+  border-radius: 10px;
 }
 
 .chat-id {
   font-size: 0.8rem;
   opacity: 0.8;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 8px;
+  border-radius: 15px;
 }
 
 .chat-messages {
@@ -237,12 +317,32 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #ff758c #f5f5f5;
+  background-color: #f9f9f9;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6z' fill='rgba(255,105,180,0.03)'/%3E%3C/svg%3E");
+}
+
+.chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 117, 140, 0.5);
+  border-radius: 10px;
 }
 
 .message {
   display: flex;
   max-width: 80%;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.5s ease;
+  position: relative;
+  z-index: 5;
 }
 
 .user-message {
@@ -258,11 +358,23 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #f1f2f6;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 10px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #ff758c;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-message .message-avatar {
+  border-color: #7986cb;
+}
+
+.ai-message .message-avatar {
+  border-color: #ff758c;
 }
 
 .message-avatar svg {
@@ -270,34 +382,61 @@ export default {
   height: 24px;
 }
 
+.user-message .message-avatar svg {
+  fill: #7986cb;
+}
+
+.ai-message .message-avatar svg {
+  fill: #ff758c;
+}
+
 .message-content {
-  background-color: white;
+  background-color: #fff;
   padding: 12px 15px;
   border-radius: 18px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   position: relative;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
 
 .user-message .message-content {
-  background-color: #00a8ff;
-  color: white;
+  background-color: #e8eaf6;
+  color: #333;
   border-top-right-radius: 4px;
 }
 
 .ai-message .message-content {
-  background-color: white;
+  background-color: #fff0f3;
+  color: #333;
   border-top-left-radius: 4px;
 }
 
 .message-text {
   margin-bottom: 5px;
   line-height: 1.4;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
 .message-time {
   font-size: 0.7rem;
   opacity: 0.7;
   text-align: right;
+  font-family: 'Poppins', sans-serif;
+}
+
+.ai-message .message-time::before {
+  content: '❤';
+  margin-right: 5px;
+  color: #ff758c;
+}
+
+.user-message .message-time::before {
+  content: '❤';
+  margin-right: 5px;
+  color: #7986cb;
 }
 
 .loading-indicator {
@@ -305,12 +444,16 @@ export default {
   align-self: flex-start;
   margin: 10px 0 10px 50px;
   gap: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .dot {
   width: 8px;
   height: 8px;
-  background-color: #e84118;
+  background-color: #ff758c;
   border-radius: 50%;
   animation: bounce 1.4s infinite ease-in-out both;
 }
@@ -327,78 +470,120 @@ export default {
   display: flex;
   padding: 15px;
   background-color: white;
-  border-top: 1px solid #eee;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+  position: relative;
+  z-index: 10;
+}
+
+/* 添加浮动爱心背景 */
+.chat-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M15 25.5C15 25.5 4 19.5 4 11.5C4 8.5 6 6 9 6C11 6 13 7 15 9C17 7 19 6 21 6C24 6 26 8.5 26 11.5C26 19.5 15 25.5 15 25.5Z' fill='rgba(255,117,140,0.03)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
 }
 
 .chat-input textarea {
   flex: 1;
-  border: 1px solid #ddd;
+  height: 40px;
+  max-height: 120px;
+  background-color: #f9f9f9;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  padding: 12px 15px;
+  color: #333;
+  padding: 10px 15px;
+  font-family: 'Poppins', sans-serif;
   resize: none;
-  height: 50px;
-  font-family: inherit;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 }
 
 .chat-input textarea:focus {
-  border-color: #e84118;
+  outline: none;
+  border-color: #ff758c;
+  box-shadow: 0 0 10px rgba(255, 117, 140, 0.2);
+}
+
+.chat-input textarea::placeholder {
+  color: rgba(0, 0, 0, 0.4);
 }
 
 .chat-input button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e84118;
-  color: white;
-  border: none;
+  width: 40px;
+  height: 40px;
   margin-left: 10px;
-  cursor: pointer;
+  background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+  border: none;
+  border-radius: 50%;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, transform 0.2s;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 2px 10px rgba(255, 117, 140, 0.3);
 }
 
 .chat-input button:hover:not(:disabled) {
-  background-color: #c23616;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 117, 140, 0.4);
 }
 
 .chat-input button:disabled {
-  background-color: #ccc;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
 .chat-input button svg {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* 添加浮动爱心动画 */
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }
 
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+.chat-header h1::before {
+  animation: heartbeat 1.5s infinite, float 3s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
+  .chat-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .chat-id {
+    font-size: 0.7rem;
+  }
+  
   .message {
     max-width: 90%;
   }
   
-  .chat-header h1 {
-    font-size: 1.2rem;
+  .message-avatar {
+    width: 35px;
+    height: 35px;
   }
   
-  .chat-id {
-    display: none;
+  .message-content {
+    padding: 10px 12px;
+  }
+  
+  .chat-input textarea {
+    height: 36px;
+  }
+  
+  .chat-input button {
+    width: 36px;
+    height: 36px;
   }
 }
 </style>

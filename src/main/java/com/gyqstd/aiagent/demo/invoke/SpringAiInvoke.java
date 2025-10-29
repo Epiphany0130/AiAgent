@@ -7,12 +7,14 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Profile;
 
 /**
  * @author GuYuqi
  * @version 1.0
  */
 @Component
+@Profile("!local")
 public class SpringAiInvoke implements CommandLineRunner {
 
     @Resource

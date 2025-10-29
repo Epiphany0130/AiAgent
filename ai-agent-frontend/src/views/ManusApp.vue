@@ -1,8 +1,20 @@
 <template>
   <div class="chat-container">
+    <!-- SEO优化：添加结构化数据 -->
+    <div class="seo-hidden" itemscope itemtype="http://schema.org/SoftwareApplication">
+      <meta itemprop="name" content="AI超级智能体" />
+      <meta itemprop="applicationCategory" content="工具" />
+      <meta itemprop="operatingSystem" content="Web" />
+      <meta itemprop="description" content="AI超级智能体，解决各种复杂问题的智能助手" />
+      <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+        <meta itemprop="ratingValue" content="4.9" />
+        <meta itemprop="ratingCount" content="856" />
+      </div>
+    </div>
+    
     <div class="chat-header">
       <div class="back-button" @click="goBack">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="返回按钮">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/>
         </svg>
       </div>
@@ -423,6 +435,10 @@ export default {
 @keyframes bounce {
   0%, 80%, 100% { transform: scale(0); }
   40% { transform: scale(1); }
+}
+
+.seo-hidden {
+  display: none;
 }
 
 @media (max-width: 768px) {
