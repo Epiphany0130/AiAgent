@@ -64,6 +64,7 @@
 import { ref, onMounted, nextTick, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { createManusChat } from '../utils/api';
+import { marked } from 'marked';
 
 export default {
   name: 'ManusApp',
@@ -75,9 +76,10 @@ export default {
     const isLoading = ref(false);
     let eventSource = null;
 
-    // 格式化消息文本（处理换行等）并按step分开
+    // 格式化消息文本（支持Markdown和处理换行）
     const formatMessage = (text) => {
-      return text.replace(/\n/g, '<br>');
+      // 使用marked库解析Markdown
+      return marked(text);
     };
     
     // 将消息按step分割成多个消息
@@ -341,6 +343,48 @@ export default {
 .message-text {
   margin-bottom: 5px;
   line-height: 1.4;
+}
+
+/* Markdown样式 */
+.message-text :deep(p) {
+  margin: 0 0 10px 0;
+}
+
+.message-text :deep(h1), .message-text :deep(h2), .message-text :deep(h3),
+.message-text :deep(h4), .message-text :deep(h5), .message-text :deep(h6) {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.message-text :deep(code) {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.message-text :deep(pre) {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.message-text :deep(blockquote) {
+  border-left: 4px solid #00a8ff;
+  padding-left: 10px;
+  margin-left: 0;
+  color: #666;
+}
+
+.message-text :deep(a) {
+  color: #00a8ff;
+  text-decoration: none;
+}
+
+.message-text :deep(a:hover) {
+  text-decoration: underline;
 }
 
 .message-time {

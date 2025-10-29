@@ -65,6 +65,7 @@
 import { ref, onMounted, nextTick, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { createLoveAppChat } from '../utils/api';
+import { marked } from 'marked';
 
 export default {
   name: 'LoveApp',
@@ -82,9 +83,10 @@ export default {
       return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     };
 
-    // 格式化消息文本（处理换行等）
+    // 格式化消息文本（支持Markdown和处理换行）
     const formatMessage = (text) => {
-      return text.replace(/\n/g, '<br>');
+      // 使用marked库解析Markdown
+      return marked(text);
     };
 
     // 格式化时间
@@ -418,6 +420,48 @@ export default {
   position: relative;
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
+}
+
+/* Markdown样式 */
+.message-text :deep(p) {
+  margin: 0 0 10px 0;
+}
+
+.message-text :deep(h1), .message-text :deep(h2), .message-text :deep(h3),
+.message-text :deep(h4), .message-text :deep(h5), .message-text :deep(h6) {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.message-text :deep(code) {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.message-text :deep(pre) {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.message-text :deep(blockquote) {
+  border-left: 4px solid #ff758c;
+  padding-left: 10px;
+  margin-left: 0;
+  color: #666;
+}
+
+.message-text :deep(a) {
+  color: #ff758c;
+  text-decoration: none;
+}
+
+.message-text :deep(a:hover) {
+  text-decoration: underline;
 }
 
 .message-time {
