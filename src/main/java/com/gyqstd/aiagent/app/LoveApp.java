@@ -21,6 +21,7 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class LoveApp {
      * 构造器初始化 ChatClient
      * @param dashscopeChatModel
      */
-    private LoveApp(ChatModel dashscopeChatModel) {
+    public LoveApp(ChatModel dashscopeChatModel) {
         // 初始化基于文件的对话记忆
         String fileDir = System.getProperty("user.dir") + "/tmp/chat-memory";
         ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
@@ -83,6 +84,22 @@ public class LoveApp {
         String content = response.getResult().getOutput().getText();
         log.info("content: {}", content);
         return content;
+    }
+
+    /**
+     * 对话方法。SSE 流式传输
+     * @param message
+     * @param chatId
+     * @return
+     */
+    public Flux<String> doChatByStream(String message, String chatId) {
+        return chatClient
+                .prompt()
+                .user(message)
+                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .stream()
+                .content();
     }
 
     record LoveReport(String title, List<String> suggestions) {}
