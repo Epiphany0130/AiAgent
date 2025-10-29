@@ -51,11 +51,11 @@ public class LoveApp {
      */
     public LoveApp(ChatModel dashscopeChatModel) {
         // 初始化基于文件的对话记忆
-        String fileDir = System.getProperty("user.dir") + "/tmp/chat-memory";
-        ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
+//        String fileDir = System.getProperty("user.dir") + "/tmp/chat-memory";
+//        ChatMemory chatMemory = new FileBasedChatMemory(fileDir);
 
 //        // 初始化基于内存的对话记忆
-//        ChatMemory chatMemory = new InMemoryChatMemory();
+        ChatMemory chatMemory = new InMemoryChatMemory();
         chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultSystem(SYSTEM_PROMPT)
                 .defaultAdvisors(

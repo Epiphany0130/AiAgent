@@ -11,13 +11,9 @@ public class MockConfig {
 
     @Bean
     public ToolCallbackProvider toolCallbackProvider() {
-//        ImageSearchTool imageSearchTool = new ImageSearchTool();
-//        return MethodToolCallbackProvider.builder()
-//                .toolObjects(imageSearchTool)
-//                .build();
-
-        // 返回一个空数组，啥也不干，只是为了防止启动时报错
-        return () -> new FunctionCallback[0];
+        // 返回一个空的ToolCallbackProvider，防止启动时报错
+        return () -> new org.springframework.ai.model.function.FunctionCallback[0];
+//        return () -> new FunctionCallback[0];
     }
 }
 

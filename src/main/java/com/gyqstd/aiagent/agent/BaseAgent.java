@@ -59,7 +59,7 @@ public abstract class BaseAgent {
             throw new RuntimeException("Cannot run agent with empty user prompt");
         }
         // 更改状态
-        state = AgentState.RUNNING;
+        this.state = AgentState.RUNNING;
         // 记录消息上下文
         messageList.add(new UserMessage(userPrompt));
         // 保存结果列表
@@ -118,7 +118,7 @@ public abstract class BaseAgent {
                 sseEmitter.completeWithError(e);
             }
             // 更改状态
-            state = AgentState.RUNNING;
+            this.state = AgentState.RUNNING;
             // 记录消息上下文
             messageList.add(new UserMessage(userPrompt));
             // 保存结果列表
