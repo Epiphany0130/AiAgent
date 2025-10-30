@@ -16,14 +16,14 @@ import org.springframework.context.annotation.Configuration;
  * @author GuYuqi
  * @version 1.0
  */
-@Configuration
+//@Configuration
 @Slf4j
 public class LoveAppRagCloudAdvisorConfig {
 
     @Value("${spring.ai.dashscope.api-key}")
     private String dashScopeApiKey;
 
-    @Bean
+//    @Bean
     public Advisor loveAppRagCloudAdvisor() {
         DashScopeApi dashScopeApi = new DashScopeApi(dashScopeApiKey);
         final String KNOWLEDGE_INDEX = "恋爱大师";

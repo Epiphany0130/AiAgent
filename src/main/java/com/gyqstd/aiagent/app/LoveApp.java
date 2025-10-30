@@ -123,14 +123,14 @@ public class LoveApp {
         return loveReport;
     }
 
-    @Resource
-    private VectorStore loveAppVectorStore;
+    //@Resource
+    //private VectorStore loveAppVectorStore;
 
-    @Resource
-    private Advisor loveAppRagCloudAdvisor;
+    //@Resource
+    //private Advisor loveAppRagCloudAdvisor;
 
-    @Resource
-    private VectorStore pgVectorVectorStore;
+    //@Resource
+    //private VectorStore pgVectorVectorStore;
 
     @Resource
     private QueryRewriter queryRewriter;
@@ -155,11 +155,11 @@ public class LoveApp {
 //                // 应用 RAG 检索增强服务（基于 PgVector 向量存储）
 //                .advisors(new QuestionAnswerAdvisor(pgVectorVectorStore))
 //                // 应用自定义的 RAG 检索增强服务（文档查询器 + 上下文增强器）
-                .advisors(
-                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
-                                loveAppVectorStore, "恋爱"
-                        )
-                )
+//                .advisors(
+//                        LoveAppRagCustomAdvisorFactory.createLoveAppRagCustomAdvisor(
+//                                loveAppVectorStore, "恋爱"
+//                        )
+//                )
                 .call()
                 .chatResponse();
         String content = response.getResult().getOutput().getText();

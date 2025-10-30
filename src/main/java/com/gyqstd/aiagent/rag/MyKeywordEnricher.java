@@ -15,14 +15,14 @@ import java.util.List;
  * @author GuYuqi
  * @version 1.0
  */
-@Component
+//@Component
 public class MyKeywordEnricher {
 
-    @Resource
-    ChatModel dashscopeChatModel;
-
-    public List<Document> enrichDocuments(List<Document> documents) {
-        KeywordMetadataEnricher keywordMetadataEnricher = new KeywordMetadataEnricher(dashscopeChatModel, 5);
-        return keywordMetadataEnricher.apply(documents);
-    }
+//    @Resource
+//    ChatModel dashscopeChatModel;
+//
+//    public List<Document> enrichDocuments(List<Document> documents) {
+//        KeywordMetadataEnricher keywordMetadataEnricher = new KeywordMetadataEnricher(dashscopeChatModel, 5);
+//        return keywordMetadataEnricher.apply(documents);
+//    }
 }
